@@ -26,13 +26,38 @@
 			-moz-animation-delay: 0.7s;
 			animation-delay: 0.7s;
 		}
+    .circleBase {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+}
 
+.type2 {
+    width: 20px;
+    height: 20px;
+    background: #ccc;
+		margin: 15px;
+    border: 1px solid #000;
+}
+.type2.red {
+	background-color: red;
+}
 	</style>
 
 	<body>
 
 	<div ng-app="myApp" ng-controller="myCtrl" style="text-align: center; padding-top: 200px; font-size: 30px; font-weight: bold">
-		<img style="height: 200px" class="box fade-in one" src="http://s3.amazonaws.com/rapgenius/jigsaw_puppet_saw_lizenz_film_maske__movie_mask.jpg"/>
+    <div>
+      <div ng-repeat="n in [] | range:10" style="display: inline-block">
+				  <div class="circleBase type2" 					ng-class="{'red': lights == n}"></div>
+      </div>
+    </div>
+    <img style="height: 200px" class="box fade-in one" src="http://s3.amazonaws.com/rapgenius/jigsaw_puppet_saw_lizenz_film_maske__movie_mask.jpg"/>
+		<div>
+			<div ng-repeat="n in [] | range:10" style="display: inline-block">
+					<div class="circleBase type2" 					ng-class="{'red': lights == n}"></div>
+			</div>
+		</div>
+
 			<div ng-repeat="item in arr" class="box fade-in one" >
 				{{item.text}}
 			</div>
@@ -45,7 +70,7 @@
 		</button>
 		<div ng-if="step == 2">
 			<div  class="box fade-in one" >
-				Prety fast ah?
+				Pretty fast ah?
 				now let's try with 80,000 items :[]
 			</div>
 			<button
@@ -73,7 +98,15 @@
 
 	<script>
 		var app = angular.module("myApp", ['angular.filter']);
-		app.controller("myCtrl", function($scope, $timeout) {
+		app.controller("myCtrl", function($scope, $timeout, $interval) {
+
+
+      $scope.lights = 0;
+      $interval(function(){
+        $scope.lights++;
+        $scope.lights = $scope.lights % 10;
+        console.log($scope.lights);
+      }, 500);
 
 			$scope.step = 0;
 			$scope.showList = 0;
