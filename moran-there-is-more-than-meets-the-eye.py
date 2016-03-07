@@ -13,4 +13,4 @@ def what_is_the_secret(secret_image, s=4):
 
 
 if __name__ == '__main__':
-    what_is_the_secret('full path to moran-wishes-the-best.png').save("goodLuck.png")
+    what_is_the_secret('moran-wishes-the-best.png').save("goodLuck.png")
