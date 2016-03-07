@@ -1,0 +1,132 @@
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+	</head>
+	<style>
+		@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+		@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+		@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+		.fade-in {
+			opacity:0;  /* make things invisible upon start */
+			-webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+			-moz-animation:fadeIn ease-in 1;
+			animation:fadeIn ease-in 1;
+
+			-webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+			-moz-animation-fill-mode:forwards;
+			animation-fill-mode:forwards;
+
+			-webkit-animation-duration:1s;
+			-moz-animation-duration:1s;
+			animation-duration:1s;
+		}
+		.fade-in.one {
+			-webkit-animation-delay: 0.7s;
+			-moz-animation-delay: 0.7s;
+			animation-delay: 0.7s;
+		}
+
+	</style>
+
+	<body>
+
+	<div ng-app="myApp" ng-controller="myCtrl" style="text-align: center; padding-top: 200px; font-size: 30px; font-weight: bold">
+		<img style="height: 200px" class="box fade-in one" src="http://s3.amazonaws.com/rapgenius/jigsaw_puppet_saw_lizenz_film_maske__movie_mask.jpg"/>
+			<div ng-repeat="item in arr" class="box fade-in one" >
+				{{item.text}}
+			</div>
+		<button
+				style="height: 30px; margin-top: 20px"
+				class="box fade-in one"
+				ng-if="step == 1"
+				ng-click="run()">
+			Click On Me
+		</button>
+		<div ng-if="step == 2">
+			<div  class="box fade-in one" >
+				Prety fast ah?
+				now let's try with 80,000 items :[]
+			</div>
+			<button
+					style="height: 30px; margin-top: 20px"
+					class="box fade-in one"
+					ng-click="run()">
+				Click On Me
+			</button>
+		</div>
+
+		<div ng-if="showList" style="padding-top: 30px; font-size: 22px">
+			Group By Result:
+			<span
+					style="font-size: 15px"
+					ng-repeat="(key, value) in players | groupBy: 'team'">
+					Group name: {{ key }}
+				<span ng-repeat="player in value">
+					player: {{ player.name }}
+				</span>
+			</span>
+		</div>
+
+	</div>
+
+
+	<script>
+		var app = angular.module("myApp", ['angular.filter']);
+		app.controller("myCtrl", function($scope, $timeout) {
+
+			$scope.step = 0;
+			$scope.showList = 0;
+			$scope.run = function() {
+				$scope.showList = 1;
+				$scope.step++;
+				if ($scope.step == 3) {
+					var hellLimit = 80000;
+					for (var i = 0; i < hellLimit; i++) {
+						$scope.players.push({name: 'Name'+i, team: 'gamma'+i});
+						$scope.players.push({name: 'Name'+i, team: 'gamma'+i});
+					}
+				}
+
+			}
+			$scope.arr = [
+				{text: "Hi Dan"}
+			]
+			var i = 1;
+			$scope.arr.add = function(item, limit, cb) {
+				limit = (limit || 2000) * i;
+				i++;
+				$timeout(function(){
+					$scope.arr.push(item);
+					if (cb) {
+						$timeout(function(){cb()}, 10);
+					}
+				}, limit)
+			}
+			$scope.arr.add({text: "I know you love angular.."});
+			$scope.arr.add({text: "And I also know you love groupBy filter :>"});
+			$scope.arr.add({text: "So.. let's play a game.. group by list of 14 items.."}, null, function(){$scope.step = 1;});
+
+			$scope.players = [
+				{name: 'Gene', team: 'alpha'},
+				{name: 'George', team: 'beta'},
+				{name: 'Steve', team: 'gamma'},
+				{name: 'Paula', team: 'beta'},
+				{name: 'Scruath', team: 'gamma1'},
+				{name: 'Scruath', team: 'gamma2'},
+				{name: 'Scruath', team: 'gamma3'},
+				{name: 'Scruath', team: 'gamma4'},
+				{name: 'Scruath', team: 'gamma5'},
+				{name: 'Scruath', team: 'gamma6'},
+				{name: 'Scruath', team: 'gamma7'},
+				{name: 'Scruath', team: 'gamma8'},
+				{name: 'Scruath', team: 'gamma9'},
+				{name: 'Scruath', team: 'gamma10'},
+			];
+
+
+		});
+	</script>
+
+	</body>
+</html>
