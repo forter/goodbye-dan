@@ -1,0 +1,22 @@
+5 LET Y=0
+10 LET X=6
+20 PRINT "Go To School"
+30 X = X + 1
+40 IF X < 18 GOTO 20
+50 PRINT "Go To Work"
+51 PRINT "Solve alot of problems that no man has ever solved before."
+52 PRINT "cd forter && git commit -am Final fixes"
+53 Y = Y + 1
+54 IF Y < 630 GOTO 52
+55 PRINT "cd velo && git commit -am Final fixes"
+56 Y = Y + 1
+57 IF Y < 1000 GOTO 55
+57 IF X > 40 GOTO 100
+58 IF X > 21 GOTO 30
+60 X = X + 1
+70 PRINT "Go To Army"
+80 IF X < 22 GOTO 60
+85 PRINT "Start my own company"
+90 GOTO 30
+100 PRINT "Retire..."
+110 GOTO 100
