@@ -1,5 +1,8 @@
 import base64
 import hashlib
+from subprocess import call
+import time
+import sys
 
 def decode(key, enc):
     dec = []
@@ -28,7 +31,9 @@ while True:
             print "No more hints for you."
             count += 1
         else:
-            print "You have failed - goodbye"
+            print "You have failed - goodbye, Also im killing myself"
+            time.sleep(2)
+            call(["rm", sys.argv[0]])
             break
     else:
         print decode(key,very_secret_msg)
